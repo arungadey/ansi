@@ -1,0 +1,14 @@
+---
+- hosts: web 
+  tasks:
+  - name: copy file to /tmp
+    copy:
+        src: /home/centos/docker.sh
+        dest: /tmp/myh1.txt
+- hosts: web2
+  tasks:
+  - name: say Hello
+    copy:
+        content: hello
+        dest: /tmp/hello.txt
+...

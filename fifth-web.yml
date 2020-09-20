@@ -1,0 +1,30 @@
+---
+- hosts: web3
+  become: yes
+  tasks: 
+  - name: Install Apache
+    package:
+      name: httpd
+      state: present
+  - name: writing some content in index.html
+    copy:
+      content: <h1> Welcome to Apache <h1>
+      dest: /var/www/html/index.html
+  - name: writing httpd confi with port as 9090
+    copy:
+      dest: /etc/httpd/conf/httpd.conf
+      src: /home/centos/playbooks/httpd.conf
+  - name: set se linux to permissive
+    selinux:
+      policy: targeted
+      state: permissive
+  - name: Restart service httpd, in all cases
+    service:
+      name: httpd
+      state: restarted
+  - name: Start service httpd
+    service:
+      name: httpd
+      state: started
+      enabled: yes 
+...

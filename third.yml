@@ -1,0 +1,26 @@
+---
+- hosts: web 
+  tasks:
+  - name: copy file to /tmp
+    copy:
+        src: /home/centos/docker.sh
+        dest: /tmp/myh1.txt
+
+  - name: create a directory to /tmp
+    file:
+        state: directory
+        path: /tmp/arun
+
+
+- hosts: web2
+  tasks:
+  - name: say Hello
+    copy:
+        content: hello
+        dest: /tmp/hello.txt
+
+  - name: Downlaod file 
+    get_url:
+        dest: /tmp/apache.conf
+        url: https://raw.githubusercontent.com/ravi2krishna/apache/master/httpd.conf
+...
