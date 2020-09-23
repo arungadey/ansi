@@ -1,0 +1,25 @@
+---
+  - name: set se linux to permissive
+    selinux:
+      policy: targeted
+      state: permissive  
+  - name: Update Index page
+    copy:
+      src: files/index.html
+      dest: /var/www/html/index.html
+  - name: Update dynamic page
+    template:
+      dest: /etc/httpd/conf/httpd.conf
+      src: templates/httpd.j2
+    notify: 
+      - Restart Apache
+  - name: Restart service httpd, in all cases
+    service:
+      name: httpd
+      state: restarted
+  - name: Start service httpd
+    service:
+      name: httpd
+      state: started
+      enabled: yes 
+...

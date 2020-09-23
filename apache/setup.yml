@@ -1,0 +1,5 @@
+---
+- hosts: newweb
+  become: yes
+  roles:
+    - ../apache 
